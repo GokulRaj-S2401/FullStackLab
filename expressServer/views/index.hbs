@@ -26,21 +26,22 @@
             <th>Action</th>
         </thead>
         <tbody>
+         {{#each result}}
             <tr>
-                <td> 1 </td>
-                <td> 2160010 </td>
-                <td> Gokul Raj S </td>
-                <td>02.04.2001</td>
-                <td> iamgokul2401@gmail.com </td>
-                <td> Tirunelveli </td>
+                <td> {{@index }} </td>
+                <td> {{this.rollno}} </td>
+                <td> {{this.name}} </td>
+                <td> {{this.dob}} </td>
+                <td> {{this.email}} </td>
+                <td> {{this.location}} </td>
                 <td>
                     <a class="button edit" href="/edit">edit</a>
                     <a class="button delete" href="/delete">delete</a>
                 </td>
             </tr>
+        {{/each}}
         </tbody>
     </table>
 
-    <script src="main.js"></script>
 </body>
 </html>

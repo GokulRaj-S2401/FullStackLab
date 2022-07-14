@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 const { engine } = require('express-handlebars')
-const mongo = require('mongodb')
+const mongo = require('mongodb').MongoClient
 
 app.set('view engine','hbs')
 app.set('views','./views')
@@ -13,42 +13,45 @@ app.use(express.json({extended:true}))
 
 app.use(express.static(__dirname+'/src'))
 
-const mongoControl = mongo.MongoClient
-const dbUrl = "mongodb://localhsot:27017/"
-
-
-app.get('/',(req,res)=>{
-    res.render('index')
-})
-
-app.post('/student',(req,res)=>{
-    // mongoControl.connect(dbUrl,(error,db)=>{
-    //     if(error){
-    //         throw error
-    //     }
-    //     else{
-    //         const dbControl = db.db('mydb')
-    //         dbControl.collection('student').insertOne(
-    //             {rollNo:req.body.rollNo,name:req.body.name,dob:req.body.dob,email:req.body.email,location:req.body.location},
-    //             (error,result)=>{
-    //             if(error){
-    //                 throw error
-    //             }
-    //             else{
-    //                 console.log(`insertion did successfully`)
-    //                 db.close()
-    //             }
-    //         })    
-    //     }
-    //   })
-    console.log(req.body)
-})
+const dbUrl = "mongodb://localhost:27017/"
 
 app.get('/add',(req,res)=>{
     res.render('add')
 })
 
-app.get('/student',(req,res)=>{
-    console.log(req.body)
+app.post('/student',(req,res)=>{
+    mongo.connect(dbUrl,(err,db)=>{
+        const dbo = db.db('mydb')
+        dbo.collection('student').find(req.body).toArray((err,result)=>{
+            if(result.length ==0){
+                dbo.collection('student').insertOne(req.body,(err,result)=>{
+                    console.log('insert')
+                    db.close()
+                    res.json({'status':200})
+                })
+            }
+            else{
+                res.json({'status':100})
+            }
+        })
+    })
 })
+
+app.get('/',(req,res)=>{
+    mongo.connect(dbUrl,(err,db)=>{
+        if(err){
+            throw err
+        }
+        else{
+            let dbo = db.db('mydb')
+            dbo.collection('student').find().toArray((err,result)=>{
+                console.log(result);
+                res.render('index',{result:result})
+            })
+        }
+    })
+})
+
+
+
 app.listen(3000,()=>console.log("server start on \nlocalhost:3000"))

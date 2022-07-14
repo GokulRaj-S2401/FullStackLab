@@ -48,9 +48,29 @@ table tr td{
 input[type="text"],input[type="email"],input[type="date"]{
     width: 100%;
 }
-p{
+.box p{
     padding-top:10px ;
 }
 input[type="submit"]{
     margin-top: 10px;
+}
+#result{
+    width: 50%;
+    font-weight: bolder;
+    margin-top: 40px;
+    visibility: hidden;
+    transition: .5s;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.successResult{
+    border: 1px solid green;
+    background: rgba(0, 255, 0, .3);
+}
+.failureResult{
+    border: 1px solid red;
+    background: rgba(255, 0, 0, .3);
 }
