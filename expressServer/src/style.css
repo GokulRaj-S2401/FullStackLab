@@ -1,3 +1,56 @@
 *{
-    margin:0px
+    margin:0px;
+    font-family: 'Segoe UI';
+}
+body{
+    width: 80%;
+    margin: 20px 10% auto;
+}
+.button{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.addBtn{
+    color: white;
+    background:  deeppink;
+    font-weight: bolder;
+    font-size: 20px;
+    padding: 5px 10px;
+}
+.edit{
+    color: white;
+    background: deeppink;
+    padding: 5px 10px;
+}
+.delete{
+    color: #fff;
+    background: #262626;
+    padding: 5px 10px;
+}
+table{
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+table tr{
+    text-align: center;
+    padding: 10px;
+}
+table tr td{
+    height: 39px;
+}
+.box{
+    width: 200px;
+    margin-top: 50px;
+}
+input[type="text"],input[type="email"],input[type="date"]{
+    width: 100%;
+}
+p{
+    padding-top:10px ;
+}
+input[type="submit"]{
+    margin-top: 10px;
 }
