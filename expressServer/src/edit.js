@@ -1,15 +1,13 @@
-const data = {name:'gokul'}
+document.getElementById('editForm').addEventListener('submit',(e)=>{
+    let name = document.getElementById('e_name').value
+    let roll = document.getElementById('e_rollno').value
+    let dob = document.getElementById('e_dob').value
+    let email = document.getElementById('e_email').value
+    let location = document.getElementById('e_location').value
 
-document.getElementById('addForm').addEventListener('submit',(e)=>{
-    let name = document.getElementById('name').value
-    let roll = document.getElementById('rollno').value
-    let dob = document.getElementById('dob').value
-    let email = document.getElementById('email').value
-    let location = document.getElementById('location').value
-
-    fetch('/student',
+    fetch('/update',
     {
-        method:"POST",
+        method:'PATCH',
         body:JSON.stringify({
             rollno:roll,
             name:name,
@@ -24,13 +22,13 @@ document.getElementById('addForm').addEventListener('submit',(e)=>{
     ).then(res=>res.json())
     .then((data)=>{
         if(data.status ==200){
-            let resultBar = "<p> Insert successfully </p>"
+            let resultBar = "<p> update successfully </p>"
             document.getElementById('result').className = 'successResult'
             document.getElementById('result').style.visibility = 'visible'
             document.getElementById('result').innerHTML = resultBar
         }
         else{
-            let resultBar = "<p> Roll No already exists </p>"
+            let resultBar = "<p>Please check roll number try again </p>"
             document.getElementById('result').className = 'failureResult'
             document.getElementById('result').style.visibility = 'visible'
             document.getElementById('result').innerHTML = resultBar
@@ -38,5 +36,3 @@ document.getElementById('addForm').addEventListener('submit',(e)=>{
     })
     e.preventDefault()
 })
-
-

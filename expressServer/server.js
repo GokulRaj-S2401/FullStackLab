@@ -6,7 +6,7 @@ const mongo = require('mongodb').MongoClient
 
 app.set('view engine','hbs')
 app.set('views','./views')
-app.use('handlebars',engine({extname:'hbs'}))
+app.use('handlebars',engine({extname:'hbs',helpers:{}}))
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json({extended:true}))
@@ -21,14 +21,17 @@ app.get('/add',(req,res)=>{
 
 app.post('/student',(req,res)=>{
     mongo.connect(dbUrl,(err,db)=>{
+
         const dbo = db.db('mydb')
-        dbo.collection('student').find(req.body).toArray((err,result)=>{
+        dbo.collection('student').find({rollno:req.body.rollno}).toArray((err,result)=>{
             if(result.length ==0){
-                dbo.collection('student').insertOne(req.body,(err,result)=>{
-                    console.log('insert')
-                    db.close()
-                    res.json({'status':200})
+                dbo.collection('student').find().count().then((count)=>{
+                    dbo.collection('student').insertOne({...req.body,sno:count+1},(err,result)=>{
+                        db.close()
+                        res.json({'status':200})
+                    })
                 })
+               
             }
             else{
                 res.json({'status':100})
@@ -45,12 +48,40 @@ app.get('/',(req,res)=>{
         else{
             let dbo = db.db('mydb')
             dbo.collection('student').find().toArray((err,result)=>{
-                console.log(result);
                 res.render('index',{result:result})
+                db.close()
             })
         }
     })
 })
+
+app.get('/edit/:rollno',(req,res)=>{
+    res.render('edit',{rollno:req.params.rollno})
+})
+
+app.patch('/update',(req,res)=>{
+   mongo.connect(dbUrl,(err,db)=>{
+    let dbo = db.db('mydb')
+    dbo.collection('student').find({rollno:req.body.rollno}).toArray((err,result)=>{
+        if(result.length !=0){
+            dbo.insertOne(req.body,(err,result)=>{
+                if(err){
+                    throw err
+                }
+                else{
+                    db.close()
+                    req.json({'status':200})
+                }
+            })
+        }
+        else{
+            req.json({'status':100})
+            db.close()
+        }
+    })
+   })
+})
+
 
 
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student Details</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body{
+              display: grid;
+              place-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div align="center" >
+        <h2> Edit Student Record </h2>
+    </div>
+    <div align="center" id="result" >
+
+    </div>
+    <div class="box" > 
+        <form id="editForm"  >
+            <p>Roll No</p>
+            <input type="text" id="e_rollno" required >
+            <p> Name </p>
+            <input type="text" id="e_name" required >
+            <p> DOB </p>
+            <input type="date" id="e_dob" required >
+            <p>Email Id</p>
+            <input type="email" id="e_email" required >
+            <p>Location</p>
+            <input type="text" id="e_location" required >
+            <div align="center" >
+                <input type="submit" value="Update">
+            </div>
+        </form>
+    </div>
+    <script src="/edit.js"></script>
+</body>
+</html>
