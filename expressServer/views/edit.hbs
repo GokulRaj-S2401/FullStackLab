@@ -23,15 +23,16 @@
     <div class="box" > 
         <form id="editForm"  >
             <p>Roll No</p>
-            <input type="text" id="e_rollno" required >
+            <input type="text" id="e_rollno" value="{{person.rollno}}" disabled required >
             <p> Name </p>
-            <input type="text" id="e_name" required >
+            <input type="text" id="e_name" value="{{person.name}}"  required >
             <p> DOB </p>
-            <input type="date" id="e_dob" required >
+            <h1>{{name}}</h1>
+            <input type="date" id="e_dob" value="{{person.dob}}" required >
             <p>Email Id</p>
-            <input type="email" id="e_email" required >
+            <input type="email" id="e_email" value="{{person.email}}" required >
             <p>Location</p>
-            <input type="text" id="e_location" required >
+            <input type="text" id="e_location" value="{{person.location}}" required >
             <div align="center" >
                 <input type="submit" value="Update">
             </div>

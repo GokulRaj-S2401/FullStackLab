@@ -19,6 +19,20 @@ app.get('/add',(req,res)=>{
     res.render('add')
 })
 
+app.get('/delete/:no',(req,res)=>{
+   mongo.connect(dbUrl,(err,db)=>{
+    let dbo = db.db('mydb')
+    dbo.collection('student').remove({rollno:req.params.no},(err,result)=>{
+       if(err){
+        throw err
+       }
+       else{
+        res.redirect('/')
+       }
+    })
+   })
+})
+
 app.post('/student',(req,res)=>{
     mongo.connect(dbUrl,(err,db)=>{
 
@@ -56,26 +70,36 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/edit/:rollno',(req,res)=>{
-    res.render('edit',{rollno:req.params.rollno})
+    mongo.connect(dbUrl,(err,db)=>{
+        let dbo = db.db('mydb')
+        dbo.collection('student').find({rollno:req.params.rollno}).toArray((err,result)=>{
+            if(err){
+                throw err
+            }
+            else{
+                console.log(result)
+                res.render('edit',{person:result[0]})
+            }
+        })
+    })
 })
 
 app.patch('/update',(req,res)=>{
    mongo.connect(dbUrl,(err,db)=>{
     let dbo = db.db('mydb')
-    dbo.collection('student').find({rollno:req.body.rollno}).toArray((err,result)=>{
-        if(result.length !=0){
-            dbo.insertOne(req.body,(err,result)=>{
-                if(err){
-                    throw err
-                }
-                else{
-                    db.close()
-                    req.json({'status':200})
-                }
-            })
+    dbo.collection('student').update({rollno:req.body.rollno},
+        {$set:{
+            rollno:req.body.rollno,
+            name:req.body.name,
+            dob:req.body.dob,
+            email:req.body.email,
+            location:req.body.location,
+        }},(err,result)=>{
+        if(err){
+            res.json({'status':100})
         }
         else{
-            req.json({'status':100})
+            res.render('index')
             db.close()
         }
     })
