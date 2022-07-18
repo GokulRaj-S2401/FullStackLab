@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Event</title>
+    <style>
+        body{
+            width:80%;
+            margin: 20px 10% auto;
+            display: grid;
+            place-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div align="center">
+        <h1> Edit Event </h1>
+    </div>
+    <div style="margin-top:20px" >
+        <form id="editForm" >
+            {{#each event}}
+            <p>Event Name</p>
+            <input type="text" id="name" value="{{this.event_name}}"  required />
+            <p>Date</p>
+            <input type="date" id="date" value="{{this.event_date}}" required />
+            <p>Incharge</p>
+            <input type="text" id="incharge" value="{{this.event_incharge}}" required />
+            <input type="hidden" id="hidEl" value="{{this.event_sno}}" >
+            <input type="submit" value="submit">
+            {{/each}}
+        </form>
+    </div>
+    <script src="/edit.js"></script>
+</body>
+</html>

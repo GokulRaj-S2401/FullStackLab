@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annual Day Events</title>
+    <style>
+         body{
+            width: 80%;
+            margin: 20px 10% auto;
+         }
+         table, tr, th, td{
+            border-collapse: collapse;
+         }
+         tr{
+            height: 30px;
+         }
+         td{
+            text-align: center;
+         }
+    </style>
+</head>
+<body>
+    <div align="center" >
+        <h2>Annual Day Events</h2>
+    </div>
+    <div align="right" >
+        <a href="/addEvent">Add Event</a>
+    </div>
+    <table style="margin-top:20px" border="1" width="100%" >
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Incharge</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each events}}
+            <tr>
+                <td> {{this.event_name}} </td>
+                <td> {{this.event_date}} </td>
+                <td>{{this.event_incharge}}</td>
+                <td>
+                    <a href="edit/{{this.event_sno}}">Edit</a>
+                    <a href="delete/{{this.event_sno}}">Delete</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</body>
+</html>

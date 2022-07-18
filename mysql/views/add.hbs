@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <style>
+        body{
+            width:80%;
+            margin: 20px 10% auto;
+            display: grid;
+            place-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div align="center">
+        <h1> Add Event </h1>
+    </div>
+    <div style="margin-top:20px" >
+        <form id="addForm" >
+            <p>Event Name</p>
+            <input type="text" id="name" required />
+            <p>Date</p>
+            <input type="date" id="date" required />
+            <p>Incharge</p>
+            <input type="text" id="incharge" required />
+            <input type="submit" value="submit">
+        </form>
+    </div>
+    <script src="/add.js"></script>
+</body>
+</html>
